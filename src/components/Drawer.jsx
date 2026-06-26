@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Nav from "./Nav";
 import NavMenus from "./NavMenus";
 
@@ -10,6 +11,7 @@ export default function Drawer({ children }) {
         <Nav />
         {/* Page content here */}
         <main>{children}</main>
+        <Footer />
       </div>
       <div className="drawer-side">
         <label
