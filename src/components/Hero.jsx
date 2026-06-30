@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa6";
 
 const heroTexts = ["Business Grow", "Life Easier", "Work Better"];
 export default function Hero() {
-  const [heroText, setHeroText] = useState(heroTexts[0]);
+  const [heroText, setHeroText] = useState(0);
+  useEffect(() => {
+    const textInterval = setInterval(() => {
+      setHeroText((prev) => (prev + 1) % heroTexts.length);
+    }, 3000);
+    return () => clearTimeout(textInterval);
+  }, []);
   return (
-    <div className="hero bg-base-200 min-h-[calc(100dvh-89px)]">
+    <div className="hero bg-base-100 min-h-[calc(100dvh-89px)]">
       <div className="hero-content text-center">
         <div className="max-w-2xl">
           <h1 className="text-6xl font-bold">
             Everything we do to make{" "}
-            <span className="text-info">{heroText}.</span>
+            <span className="text-info">{heroTexts[heroText]}.</span>
           </h1>
           <p className="py-6 text-balance">
             Find the right space, services, and support, so your business and
