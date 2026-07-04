@@ -7,6 +7,7 @@ import { auth } from "../../firebase/firebase.config";
 import { toast } from "react-toastify";
 
 export default function SignIn() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(MyContext);
@@ -26,6 +27,7 @@ export default function SignIn() {
   //login logic here
   const handleLogin = (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -34,10 +36,12 @@ export default function SignIn() {
         // Signed in
         const user = userCredential.user;
         toast.success("Login Successful");
+        setIsSubmitting(false);
         navigate("/dashboard");
         // ...
       })
       .catch((error) => {
+        setIsSubmitting(false);
         toast.error(error.message);
       });
   };
@@ -85,8 +89,16 @@ export default function SignIn() {
         <Link className="link link-info link-hover" to="/forgot-password">
           <p>Forgot Password!</p>
         </Link>
-        <button type="submit" className="btn btn-info mt-4">
-          Login
+        <button
+          disabled={isSubmitting}
+          type="submit"
+          className="btn btn-info mt-4"
+        >
+          {isSubmitting ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            "Login"
+          )}
         </button>
 
         <p className="text-center">

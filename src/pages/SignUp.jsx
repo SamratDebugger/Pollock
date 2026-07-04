@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { MyContext } from "../../context/MyProvider";
 
 export default function SignUp() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useContext(MyContext);
@@ -24,6 +25,7 @@ export default function SignUp() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const username = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -32,9 +34,12 @@ export default function SignUp() {
       await updateProfile(auth.currentUser, {
         displayName: username,
       });
+      setIsSubmitting(false);
       toast.success("Registration Successful");
       navigate("/dashboard");
     } catch (error) {
+      setIsSubmitting(false);
+
       toast.error(error.message);
     }
   };
@@ -90,8 +95,16 @@ export default function SignUp() {
           </button>
         </label>
 
-        <button type="submit" className="btn btn-info mt-4">
-          Registration
+        <button
+          disabled={isSubmitting}
+          type="submit"
+          className="btn btn-info mt-4"
+        >
+          {isSubmitting ? (
+            <span className="loading loading-spinner"></span>
+          ) : (
+            "Registration"
+          )}
         </button>
 
         <p className="text-center">
