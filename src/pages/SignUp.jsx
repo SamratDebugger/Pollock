@@ -1,12 +1,35 @@
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { auth } from "../../firebase/firebase.config";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
   const [isHidden, setIsHidden] = useState(true);
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const username = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    try {
+      createUserWithEmailAndPassword(auth, email, password);
+      updateProfile(auth.currentUser, {
+        displayName: username,
+      });
+      toast.success("Registration Successful");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <div className="py-50">
-      <form className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-5 mx-auto ">
+      <form
+        onSubmit={handleSubmit}
+        className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-5 mx-auto "
+      >
         <h2 className=" text-center text-xl">Registration</h2>
 
         <label htmlFor="name" className="label">
