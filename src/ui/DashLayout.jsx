@@ -1,14 +1,7 @@
 import { Outlet } from "react-router";
 import DashNav from "../components/DashNav";
-import { auth } from "../../firebase/firebase.config";
 
 export default function DashLayout() {
-  const user = auth.currentUser;
-  if (user !== null) {
-    // The user object has basic properties such as display name, email, etc.
-    const displayName = user.displayName;
-    console.log(displayName);
-  }
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />

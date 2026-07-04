@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import NavMenus from "./NavMenus";
 import { Link } from "react-router";
+import { MyContext } from "../../context/MyProvider";
 
 export default function Nav() {
+  const { currentUser } = useContext(MyContext);
+
   return (
     <header className="bg-base-100">
       <div className="navbar max-w-360 mx-auto p-5  ">
@@ -41,8 +45,10 @@ export default function Nav() {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to="/sign-up" className="">
-            <button className="btn btn-info">SignUp</button>
+          <Link to={currentUser ? "/dashboard" : "/sign-up"} className="">
+            <button className="btn btn-info">
+              {currentUser ? "Dashboard" : "Sign Up"}
+            </button>
           </Link>
         </div>
       </div>

@@ -1,21 +1,35 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router";
 import { auth } from "../../firebase/firebase.config";
 import { toast } from "react-toastify";
+import { MyContext } from "../../context/MyProvider";
 
 export default function SignUp() {
   const [isHidden, setIsHidden] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const { currentUser } = useContext(MyContext);
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (currentUser) {
+      setIsLoading(false);
+      navigate("/dashboard");
+    } else {
+      setIsLoading(false);
+    }
+  }, [currentUser, navigate]);
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const username = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     try {
-      createUserWithEmailAndPassword(auth, email, password);
-      updateProfile(auth.currentUser, {
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, {
         displayName: username,
       });
       toast.success("Registration Successful");

@@ -78,6 +78,9 @@ export default function DashNav() {
               </a>
             </li>
             <li>
+              <Link to="/">Back to Home</Link>
+            </li>
+            <li>
               <a>Settings</a>
             </li>
             <li>
