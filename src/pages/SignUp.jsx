@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router";
 import { auth } from "../../firebase/firebase.config";
 import { toast } from "react-toastify";
 import { MyContext } from "../../context/MyProvider";
+import { createUser } from "../../api/user.api";
 
 export default function SignUp() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,10 +31,11 @@ export default function SignUp() {
     const email = e.target.email.value;
     const password = e.target.password.value;
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(auth.currentUser, {
-        displayName: username,
-      });
+      // await createUserWithEmailAndPassword(auth, email, password);
+      // await updateProfile(auth.currentUser, {
+      //   displayName: username,
+      // });
+      await createUser(username, email);
       setIsSubmitting(false);
       toast.success("Registration Successful");
       navigate("/dashboard");
