@@ -9,7 +9,6 @@ export default function ProtectedRoute({ children }) {
   useEffect(() => {
     if (currentUser) {
       setIsLoading(false);
-      navigate("/dashboard");
     } else {
       setIsLoading(false);
       navigate("/sign-in");

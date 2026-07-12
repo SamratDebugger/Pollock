@@ -1,5 +1,6 @@
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 import DashNav from "../components/DashNav";
+import { LuUser } from "react-icons/lu";
 
 export default function DashLayout() {
   return (
@@ -25,7 +26,8 @@ export default function DashLayout() {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              <button
+              <Link
+                to="/dashboard"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Homepage"
               >
@@ -44,7 +46,7 @@ export default function DashLayout() {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
                 <span className="is-drawer-close:hidden">Homepage</span>
-              </button>
+              </Link>
             </li>
 
             {/* List item */}
@@ -71,6 +73,17 @@ export default function DashLayout() {
                 </svg>
                 <span className="is-drawer-close:hidden">Settings</span>
               </button>
+            </li>
+
+            <li>
+              <Link
+                to="/dashboard/users"
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Users"
+              >
+                <LuUser className="my-1.5 inline-block size-4" />
+                <span className="is-drawer-close:hidden">Users</span>
+              </Link>
             </li>
           </ul>
         </div>

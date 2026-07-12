@@ -31,10 +31,10 @@ export default function SignUp() {
     const email = e.target.email.value;
     const password = e.target.password.value;
     try {
-      // await createUserWithEmailAndPassword(auth, email, password);
-      // await updateProfile(auth.currentUser, {
-      //   displayName: username,
-      // });
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, {
+        displayName: username,
+      });
       await createUser(username, email);
       setIsSubmitting(false);
       toast.success("Registration Successful");

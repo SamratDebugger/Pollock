@@ -13,6 +13,7 @@ import DashLayout from "./ui/DashLayout";
 import ForgotPassword from "./pages/ForgotPassword";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Users from "./pages/Users";
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/dashboard/users" element={<Users />} />
         </Route>
       </Routes>
     </>
